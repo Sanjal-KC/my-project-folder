@@ -13,23 +13,23 @@ def parse(exp_input):
 
 
 class Expenses:
-    def __init__(self, name):
+    def __init__(self, name, amount):
         self.name = name
+        self.amount = amount
         self.time = time.time()
-        self.arr = [
-            {"id": 1, "fun": "add", "category": "coffee", "amount": 20},
-            {"id": 2, "fun": "add", "category": "rent", "amount": 300},
-        ]
+
+
+class ExpenseTracker:
+    def __init__(self, list=None):
+        if list is None:
+            list = []
+        self.list = list
 
     def add_expense(self):
-        exp_input = input("Please enter your expenses: (coffee 50): ")
+        exp_input = input("Please enter your expenses: (coffee 50): ").lower().split()
         # Takes input from the user for their expenses
-        fun, amount, category = parse(exp_input)
-        self.arr.append({"fun": fun, "category": category, "amount": amount})
-
-        for dic in self.arr:
-            for y in dic:
-                print(dic[y])
+        name, amount = exp_input
+        self.list.append((Expenses(name, amount)))
 
         # self.list.append({'Expense': })
 
@@ -63,10 +63,8 @@ class Expenses:
     def show_expense(self):
         i = 0
         for dict in self.arr:
-            print(f"{dict["id"]}) {dict["fun"]} {dict["category"]} {dict["amount"]}")
+            pass
 
 
-d1 = Expenses("Sanjal")
-
-
+d1 = ExpenseTracker()
 d1.menu()
