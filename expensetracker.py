@@ -1,4 +1,4 @@
-import time
+import datetime
 
 
 def parse(exp_input):
@@ -13,23 +13,23 @@ def parse(exp_input):
 
 
 class Expenses:
+    tracker_id = 0
+
     def __init__(self, name, amount):
         self.name = name
+        Expenses.tracker_id += 1  # To track expenses number id
+        self.tracker = Expenses.tracker_id
         self.amount = amount
-        self.time = time.time()
 
 
 class ExpenseTracker:
     def __init__(self, list=None):
         if list is None:
-            list = []
-        self.list = list
+            self.list = []
 
     def add_expense(self):
         exp_input = input("Please enter your expenses: (coffee 50): ").lower().split()
-        # Takes input from the user for their expenses
-        name, amount = exp_input
-        self.list.append((Expenses(name, amount)))
+        self.list.append((Expenses(*exp_input)))
 
         # self.list.append({'Expense': })
 
@@ -44,7 +44,7 @@ class ExpenseTracker:
 
     def menu(self):
         while True:
-            menu_item = ["Add Expense", "Edit Expense", "Remove Expense"]
+            menu_item = ["Abdd Expense", "Edit Expense", "Remove Expense"]
             for i, x in enumerate(menu_item):
                 print(f"{i+1} {x}")
             choice = input("Enter your choice: ").strip().lower().split()[0]
@@ -61,9 +61,8 @@ class ExpenseTracker:
                 break
 
     def show_expense(self):
-        i = 0
-        for dict in self.arr:
-            pass
+        for x in self.list:
+            print(f"{x.tracker}) {x.name}---{x.amount}")
 
 
 d1 = ExpenseTracker()
