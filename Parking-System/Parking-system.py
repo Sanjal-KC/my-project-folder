@@ -60,17 +60,17 @@ while True:  # Main LOOP----->
 
             print(f"\nParking Time: {total_hour} hours and {total_minutes} minutes")
             if total_time <= 1:
-                print("Total Due: 19$")
                 due = 19
+                print(f"Total Due: {due}$")
             elif total_time <= 2:
-                print("Total Due: 29$")
                 due = 29
+                print(f"Total Due: {due}$")
             elif total_time <= 3:
-                print("Total Due: 79$")
-                due = 39
-            else:
-                print("Total Due: 89$")
                 due = 79
+                print(f"Total Due: {due}$")
+            else:
+                due = 89
+                print(f"Total Due: {due}$")
             collected_amount = 0  # No amount collected from the user yet
             while collected_amount < due:  # Run till collected_amount is less than due
                 cash_inp = int(
