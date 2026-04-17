@@ -37,9 +37,9 @@ def legend():  # Graph Style Legend for the VISUALISER SYSTEM
 def draw_square(STEP_SIZE, available):
     turtle.pendown()
     if available:
-        turtle.fillcolor("Red")
-    else:
         turtle.fillcolor("White")
+    else:
+        turtle.fillcolor("Red")
     turtle.begin_fill()
     for side in range(4):
         turtle.forward(STEP_SIZE)
@@ -101,7 +101,6 @@ def menu():
         print("Invalid Input")
 
 
-# legend()
 menu()
 
 
