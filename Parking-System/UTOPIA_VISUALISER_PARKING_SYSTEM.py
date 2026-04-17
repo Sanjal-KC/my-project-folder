@@ -12,6 +12,7 @@ SECTION_GAP = 50
 
 def legend():  # Graph Style Legend for the VISUALISER SYSTEM
     for x in range(2):
+        turtle.penup()
         if x == 0:
             turtle.goto(-400, -150)
             draw_square(STEP_SIZE / 2, True)
@@ -20,7 +21,7 @@ def legend():  # Graph Style Legend for the VISUALISER SYSTEM
             turtle.forward(STEP_SIZE / 4)
             turtle.left(90)
             turtle.forward(STEP_SIZE / 4)
-            turtle.write("Available")
+            turtle.write("Available", align="left", font=("Arial", 9, "bold"))
         else:
             turtle.goto(-300, -150)
             draw_square(STEP_SIZE / 2, False)
@@ -30,7 +31,7 @@ def legend():  # Graph Style Legend for the VISUALISER SYSTEM
             turtle.left(90)
             turtle.forward(STEP_SIZE / 4)
             turtle.pendown()
-            turtle.write("Unavailable")
+            turtle.write("Unavailable", align="left", font=("Arial", 9, "bold"))
 
 
 def draw_square(STEP_SIZE, available):
@@ -49,8 +50,8 @@ def draw_square(STEP_SIZE, available):
 
 def letterprint(code):
     turtle.forward(STEP_SIZE / 2)
-    for x in range(6):
-        turtle.write(chr(code + x))
+    for i in range(6):
+        turtle.write(chr(code + i), align="left", font=("Arial", 9, "bold"))
         turtle.forward(STEP_SIZE)
 
 
