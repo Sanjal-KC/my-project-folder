@@ -10,21 +10,31 @@ STEP_SIZE = 50
 SECTION_GAP = 50
 
 
-"""def legend():   # Graph Style Legend for the VISUALISER SYSTEM
-    turtle.penup()
-    turtle.goto(-400, 350 - 10 * 50)
-    for x in range(1):
-        turtle.pendown()
-        turtle.fillcolor("Red")
-        turtle.begin_fill()
-        for side in range(4):
-            turtle.forward(50)
+def legend():  # Graph Style Legend for the VISUALISER SYSTEM
+    for x in range(2):
+        if x == 0:
+            turtle.goto(-400, -150)
+            draw_square(STEP_SIZE / 2, True)
+            turtle.forward(STEP_SIZE / 2)
             turtle.right(90)
-        turtle.end_fill()
-        """
+            turtle.forward(STEP_SIZE / 4)
+            turtle.left(90)
+            turtle.forward(STEP_SIZE / 4)
+            turtle.write("Available")
+        else:
+            turtle.goto(-300, -150)
+            draw_square(STEP_SIZE / 2, False)
+            turtle.forward(STEP_SIZE / 2)
+            turtle.right(90)
+            turtle.forward(STEP_SIZE / 4)
+            turtle.left(90)
+            turtle.forward(STEP_SIZE / 4)
+            turtle.pendown()
+            turtle.write("Unavailable")
 
 
 def draw_square(STEP_SIZE, available):
+    turtle.pendown()
     if available:
         turtle.fillcolor("Red")
     else:
@@ -34,6 +44,7 @@ def draw_square(STEP_SIZE, available):
         turtle.forward(STEP_SIZE)
         turtle.right(90)
     turtle.end_fill()
+    turtle.penup()
 
 
 def letterprint(code):
@@ -50,23 +61,20 @@ def block(x_axis, code, availability):
     turtle.pendown()
     for SECTION in range(3):
         for ROW in range(2):
-            turtle.pendown()
             for COLUMN in range(6):
                 available = random.random() < availability
                 draw_square(STEP_SIZE, available)
                 turtle.forward(STEP_SIZE)
-            turtle.penup()
             next = y_axis - ((ROW + 1) * STEP_SIZE)
             turtle.goto(x_axis, next)
 
         y_axis = next - SECTION_GAP
-        turtle.penup()
         turtle.goto(x_axis, y_axis)
-
     letterprint(code)
 
 
 def menu():
+    legend()
     block1_x_axis = -400
     block2_x_axis = 150
     print("Check-in Hour\tSpot Avaibility")
