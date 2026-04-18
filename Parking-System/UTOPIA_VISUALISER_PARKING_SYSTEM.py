@@ -8,8 +8,24 @@ import random
 # CONSTRAINT - Cannot USE LIST,TUPLE , DICTIONARY AND SET
 turtle.setup(width=3000, height=3000)
 turtle.speed(0)
+BLOCK1_X_AXIS = -400
+BLOCK2_X_AXIS = 150
+Y_AXIS = 350
 STEP_SIZE = 50
 SECTION_GAP = 50
+
+
+def row_label(y):
+    turtle.setheading(270)
+    turtle.penup()
+    mid_x = ((BLOCK1_X_AXIS + (STEP_SIZE * 6)) + BLOCK2_X_AXIS) / 2
+    next_y = y
+    for i in range(6):
+        turtle.goto(mid_x, next_y - STEP_SIZE / 2)
+        turtle.write(6 - i, align="left", font=("Arial", 14, "bold"))
+        next_y = next_y - STEP_SIZE
+        if (i + 1) % 2 == 0:
+            next_y = next_y - SECTION_GAP
 
 
 def legend_item(x_axis, available):
@@ -34,6 +50,7 @@ def legend():  # Graph Style Legend for the VISUALISER SYSTEM which draws each i
 
 
 def draw_square(step_size, available):
+    turtle.setheading(0)
     turtle.pendown()
     if available:
         turtle.fillcolor("white")
@@ -47,7 +64,7 @@ def draw_square(step_size, available):
     turtle.penup()
 
 
-def letterprint(code):
+def column_label(code):
     turtle.setheading(0)
     turtle.forward(STEP_SIZE / 2)
     for i in range(6):
@@ -55,13 +72,13 @@ def letterprint(code):
         turtle.forward(STEP_SIZE)
 
 
-def block(x_axis, code, availability):
+def block(x_axis, y_axis, code, availability):
     turtle.penup()
-    y_axis = 350
     turtle.goto(x_axis, y_axis)
     turtle.pendown()
     for SECTION in range(3):
         for ROW in range(2):
+            turtle.setheading(0)
             for COLUMN in range(6):
                 available = random.random() < availability
                 draw_square(STEP_SIZE, available)
@@ -71,16 +88,14 @@ def block(x_axis, code, availability):
 
         y_axis = next_y - SECTION_GAP
         turtle.goto(x_axis, y_axis)
-    letterprint(code)
+    column_label(code)
 
 
 def block_caller(availability):
-    block1_x_axis = -400
-    block2_x_axis = 150
     CODE_A = 65
     CODE_G = 71
-    block(block1_x_axis, CODE_A, availability)
-    block(block2_x_axis, CODE_G, availability)
+    block(BLOCK1_X_AXIS, Y_AXIS, CODE_A, availability)
+    block(BLOCK2_X_AXIS, Y_AXIS, CODE_G, availability)
 
 
 def menu():
@@ -94,20 +109,17 @@ def menu():
         except ValueError:
             print("Invalid Input.")
 
-    legend()
+    legend()  # CAll legend function to display legend items
+    row_label(Y_AXIS)
     if u_inp == 1:
         availability = 0.2
-        block_caller(availability)
-
     elif u_inp == 2:
         availability = 0.5
-        block_caller(availability)
     elif u_inp == 3:
         availability = 0.8
-        block_caller(availability)
-
     else:
         print("Invalid Input")
+    block_caller(availability)
 
 
 menu()
