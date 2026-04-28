@@ -27,52 +27,38 @@ while True:  # Main LOOP----->
                 print("\nEnter your Check out time: ")
                 hour_out = int(input("Enter the hour(0-23): "))
                 minute_out = int(input("Enter the minute(0-59): "))
-                if (
-                    0 <= minute_in < 60 and 0 <= minute_out < 60
+                if (0 <= minute_in < 60 and 0 <= minute_out < 60) and (
+                    0 <= hour_out < 24 and 0 <= hour_in < 24
                 ):  # Minute Boundary checker
                     break
-                print("\nPlease enter Valid minutes\n")
+                print("\nPlease enter Valid Hour and Minutes\n")
 
             except ValueError:
                 print("\nPlease enter an integer value")
 
-        check_in = hour_in + (minute_in / 60)
-        check_out = hour_out + (minute_out / 60)
-        total_time = check_out - check_in
-        if total_time < 0:
-            temp = total_time + 24
-            total_time = temp
+        total_minutes = (hour_out * 60 + minute_out) - (hour_in * 60 + minute_in)
+        if total_minutes < 0:
+            total_minutes += 24 * 60
 
-        if (  # Only runs if check in and out are between 0 to 24 hours and total parking time is not negative
-            check_in >= 0 and check_in < 24
-        ) and (
-            check_out >= 0 and check_out < 24
-        ):
-            total_hour = hour_out - hour_in
-            if total_hour < 0:
-                temp2 = total_hour + 24
-                total_hour = temp2
+        total_hour = total_minutes // 60
+        total_minute = total_minutes % 60
 
-            if minute_out > minute_in:
-                total_minutes = minute_out - minute_in
-            else:
-                total_minutes = minute_in - minute_out
-
-            print(f"\nParking Time: {total_hour} hours and {total_minutes} minutes")
-            if total_time <= 1:
-                due = 19
-                print(f"Total Due: {due}$")
-            elif total_time <= 2:
-                due = 29
-                print(f"Total Due: {due}$")
-            elif total_time <= 3:
-                due = 79
-                print(f"Total Due: {due}$")
-            else:
-                due = 89
-                print(f"Total Due: {due}$")
-            collected_amount = 0  # No amount collected from the user yet
-            while collected_amount < due:  # Run till collected_amount is less than due
+        print(f"\nParking Time: {total_hour} hours and {total_minute} minutes")
+        if total_minutes <= 60:
+            due = 19
+            print(f"Total Due: {due}$")
+        elif total_minutes <= 120:
+            due = 29
+            print(f"Total Due: {due}$")
+        elif total_minutes <= 180:
+            due = 79
+            print(f"Total Due: {due}$")
+        else:
+            due = 89
+            print(f"Total Due: {due}$")
+        collected_amount = 0  # No amount collected from the user yet
+        while collected_amount < due:  # Run till collected_amount is less than due
+            try:
                 cash_inp = int(
                     input("Insert cash amount((1, 2, 5, 10, 20, 50, 100 only): ")
                 )
@@ -89,17 +75,18 @@ while True:  # Main LOOP----->
                         "Please Enter the cash in only ((1, 2, 5, 10, 20, 50, 100)"
                     )  # exception handling for only required cash
                     continue
-                collected_amount = collected_amount + cash_inp
-                remaining_balance = due - collected_amount
-                print("Remaining Balance:", remaining_balance)
-            if collected_amount > due:  # In case of change needed
-                change_amount = collected_amount - due
-                print("\nHeres your change!!:", change_amount)
-            print("Thank you for parking with us:)\n")
-            break
-        else:
-            print("\nYour Parking time is not valid.\n")
-            break
+            except ValueError:
+                print("Please Enter an Integer Value")
+                continue
+            collected_amount = collected_amount + cash_inp
+            remaining_balance = due - collected_amount
+            print("Remaining Balance:", remaining_balance)
+        if collected_amount > due:  # In case of change needed
+            change_amount = collected_amount - due
+            print("\nHeres your change!!:", change_amount)
+        print("Thank you for parking with us:)\n")
+        break
+
     elif choice == 3:
         print("Thank you for using Utopia Parking :)")
         break
