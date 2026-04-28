@@ -6,8 +6,6 @@ import random
 # EACH SQUARE REPRESENTS THE PARKING SPOT
 
 # CONSTRAINT - Cannot USE LIST,TUPLE , DICTIONARY AND SET
-turtle.setup(width=3000, height=3000)
-turtle.speed(0)
 BLOCK1_X_AXIS = -400
 BLOCK2_X_AXIS = 150
 Y_AXIS = 350
@@ -108,9 +106,6 @@ def menu():
             break
         except ValueError:
             print("Invalid Input.")
-
-    legend()  # CAll legend function to display legend items
-    row_label(Y_AXIS)
     if u_inp == 1:
         availability = 0.2
     elif u_inp == 2:
@@ -119,10 +114,13 @@ def menu():
         availability = 0.8
     else:
         print("Invalid Input")
+        return
+    turtle.setup(width=1000, height=1000)
+    turtle.speed(0)
+    legend()  # CAll legend function to display legend items
+    row_label(Y_AXIS)
     block_caller(availability)
+    turtle.exitonclick()
 
 
 menu()
-
-
-turtle.exitonclick()
